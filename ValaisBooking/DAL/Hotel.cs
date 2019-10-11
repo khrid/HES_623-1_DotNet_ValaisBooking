@@ -15,7 +15,7 @@ namespace DAL
 
         public string Location { get; set; }
 
-        public string Category { get; set; }
+        public int Category { get; set; }
 
         public bool HasWifi { get; set; }
 
