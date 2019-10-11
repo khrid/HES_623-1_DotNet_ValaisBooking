@@ -61,5 +61,54 @@ namespace DAL
 
             return results;
         }
+
+        public Hotel GetHotel(int IdHotel)
+        {
+            Hotel result = null;
+            string connectionString = Configuration.GetConnectionString("ValaisBookingLocal");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    cn.Open();
+                    string query = "select * from Hotels where IdHotel = @IdHotel";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@IdHotel", IdHotel);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            if (result == null)
+                            {
+                                result = new Hotel();
+                            }
+
+                            Hotel hotel = new Hotel();
+                            hotel.IdHotel = (int)dr["IdHotel"];
+                            hotel.Name = (string)dr["Name"];
+                            //hotel.Description = (string)dr["Description"];
+                            hotel.Location = (string)dr["Location"];
+                            hotel.Category = (int)dr["Category"];
+                            hotel.HasWifi = (bool)dr["HasWifi"];
+                            hotel.HasParking = (bool)dr["HasParking"];
+                            hotel.Phone = (string)dr["Phone"];
+                            hotel.Email = (string)dr["Email"];
+                            hotel.Website = (string)dr["Website"];
+
+                            result = hotel;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+            return result;
+        }
     }
 }

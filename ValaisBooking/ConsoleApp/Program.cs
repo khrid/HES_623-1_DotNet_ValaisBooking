@@ -21,6 +21,9 @@ namespace ConsoleApp
             hotels.ForEach(delegate(Hotel hotel){
                 Console.WriteLine(hotel);
             });
+
+            Console.WriteLine("HotelsDb.GetHotel(2)");
+            Console.WriteLine(HotelsDb.GetHotel(2));
         }
     }
 }
